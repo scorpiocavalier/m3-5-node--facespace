@@ -12,6 +12,10 @@ const handleFourOhFour = (req, res) => {
   res.status(404).send("I couldn't find what you're looking for.");
 };
 
+const handleHomepage = (req, res) => {
+  res.status(200).render('pages/homepage', { users })
+}
+
 // --------------------------------------------------------------
 express()
   .use(morgan('dev'))
@@ -19,9 +23,7 @@ express()
   .use(express.urlencoded({ extended: false }))
   .set('view engine', 'ejs')
 
-  .get('/', (req, res) => {
-    res.render('pages/homepage')
-  })
+  .get('/', handleHomepage)
 
   .get('*', handleFourOhFour)
 
