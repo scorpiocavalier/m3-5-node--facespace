@@ -21,11 +21,8 @@ express()
   .post('/getname', handleName)
 
   .get('/users/:id', handleProfilePage)
-
   .get('/signin', handleSignin)
-
   .get('/', handleHomepage)
-
   .get('*', handleFourOhFour)
 
   .listen(8000, () => console.log('Listening on port 8000'))

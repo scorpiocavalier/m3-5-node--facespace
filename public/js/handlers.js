@@ -9,7 +9,7 @@ const handleHomepage = (req, res) => {
 const handleProfilePage = (req, res) => {
   const { id } = req.params
   const profileUser = users.find(user => user._id === id)
-  let friends = users.filter(user => profileUser.friends.includes(friend._id))
+  const friends = users.filter(user => profileUser.friends.includes(friend._id))
   res.status(200).render('pages/profile', { profileUser, friends, currentUser })
 }
 
