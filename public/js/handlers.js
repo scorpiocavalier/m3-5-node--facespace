@@ -1,3 +1,6 @@
+const { users } = require('../../data/users')
+let currentUser = {}
+
 const handleFourOhFour = (req, res) => {
   res.status(404).send("I couldn't find what you're looking for.")
 }
@@ -9,7 +12,7 @@ const handleHomepage = (req, res) => {
 const handleProfilePage = (req, res) => {
   const { id } = req.params
   const profileUser = users.find(user => user._id === id)
-  const friends = users.filter(user => profileUser.friends.includes(friend._id))
+  const friends = users.filter(user => profileUser.friends.includes(user._id))
   res.status(200).render('pages/profile', { profileUser, friends, currentUser })
 }
 

@@ -3,14 +3,11 @@
 const express = require('express')
 const morgan = require('morgan')
 
-const { users } = require('./data/users')
 const { 
   handleName, handleProfilePage,
   handleSignin, handleHomepage,
   handleFourOhFour
 } = require('./public/js/handlers')
-
-let currentUser = {}
 
 express()
   .use(morgan('dev'))
