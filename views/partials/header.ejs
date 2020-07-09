@@ -7,5 +7,14 @@
 </head>
 <body>
   <header class="header">
-      <h1 class='site-title'>Facespace</h1>
+      <h1 class='site-title'>
+        <a href="/">Facespace</a>
+      </h1>
+      <% if (Object.entries(currentUser).length == 0) { %>
+      <button class='signin-button' onclick="window.location.href='/signin'">
+        Sign in
+      </button>
+      <% } else { %>
+      <p><%= `Hello, ${currentUser.name}` %></p>
+      <% } %>
   </header>

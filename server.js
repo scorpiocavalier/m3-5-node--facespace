@@ -1,19 +1,20 @@
-'use strict';
+'use strict'
 
-const express = require('express');
-const morgan = require('morgan');
+const express = require('express')
+const morgan = require('morgan')
 
-const { users } = require('./data/users');
+const { users } = require('./data/users')
 
-let currentUser = {};
+let currentUser = {}
 
 // declare the 404 function
 const handleFourOhFour = (req, res) => {
-  res.status(404).send("I couldn't find what you're looking for.");
-};
+  res.status(404).send("I couldn't find what you're looking for.")
+}
 
 const handleHomepage = (req, res) => {
-  res.status(200).render('pages/homepage', { users })
+  console.log(currentUser.friends)
+  res.status(200).render('pages/homepage', { users, currentUser })
 }
 
 const handleProfilePage = (req, res) => {
@@ -24,20 +25,24 @@ const handleProfilePage = (req, res) => {
     let friend = users.find(user => friendId === user._id)
     friends.push(friend)
   })
-  res.render('pages/profile', { user, friends })
+  res.status(200).render('pages/profile', { user, friends, currentUser })
 }
 
 const handleSignin = (req, res) => {
-  res.render('pages/signin')
+  if(Object.entries(currentUser).length === 0)
+    res.status(200).render('pages/signin', { currentUser })
+  else
+    res.status(404).redirect('/')
 }
 
 const handleName = (req, res) => {
   const { firstName } = req.body
   const user = users.find(user => user.name === firstName)
-  if(user !== undefined)
+  if(user !== undefined) {
+    currentUser = user
     res.status(200).redirect(`/users/${user._id}`)
-  else
-    res.status(404).render('pages/signin')
+  } else
+    res.status(404).render('pages/signin', { currentUser })
 }
 
 // --------------------------------------------------------------
@@ -57,5 +62,5 @@ express()
 
   .get('*', handleFourOhFour)
 
-  .listen(8000, () => console.log('Listening on port 8000'));
+  .listen(8000, () => console.log('Listening on port 8000'))
 // --------------------------------------------------------------

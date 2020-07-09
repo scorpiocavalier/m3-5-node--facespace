@@ -15,10 +15,12 @@
     <h3><%= name %>'s Friends</h3>
     <ul class='profile-page__friends--list'>
     <% friends.forEach(friend => { %>
-      <% let { avatarUrl, name } = friend %> 
+      <% let { avatarUrl, name, _id } = friend %> 
       <li class="friend">
-        <img src=<%= avatarUrl %> alt=<%= name %>> 
-        <p><%= name %></p>
+        <a href=<%= `/users/${_id}` %>>
+          <img src=<%= avatarUrl %> alt=<%= name %>> 
+          <p><%= name %></p>
+        </a>
       </li>
       <% }) %>
     </ul>
